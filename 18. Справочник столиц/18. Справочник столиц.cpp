@@ -10,6 +10,7 @@ void PrintDump(const map<string, string>& dump) {
     for (auto item : dump) {
         cout << item.first << "/" << item.second << " ";
     }
+    cout << endl;
 }
 
 
