@@ -3,7 +3,6 @@
 #include <map>
 #include <vector>
 #include <string>
-#include "19. Автобусные остановки - 1.h"
 
 using namespace std;
 
