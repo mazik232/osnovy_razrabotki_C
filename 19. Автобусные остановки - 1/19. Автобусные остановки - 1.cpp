@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 bool PereborStopBool(string& stop, map<string, vector<string>>& buses) {
     for (const auto& x : buses) {
         for (const auto& i : x.second) {
