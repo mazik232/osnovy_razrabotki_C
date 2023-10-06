@@ -6,40 +6,48 @@
 
 using namespace std;
 
-
-bool PereborStopBool(string& stop, map<string, vector<string>>& buses) {
+vector<string> PereborStop(const string& stop, const map<string, vector<string>> buses) {
+    vector<string> a;
     for (const auto& x : buses) {
         for (const auto& i : x.second) {
             if (i == stop) {
-                return true;
-            }
-            else {
-                return false;
+                a.push_back(x.first);
             }
         }
     }
+    return a;
 }
 
-void PereborStop(const string& stop, map<string, vector<string>> buses) {
-    for (auto& x : buses) {
-        for (auto &i : x.second) {
-            if (i == stop) {
-                cout << x.first << " ";
+vector<string> PereborStopBus(const string& stop, const map<string, vector<string>> buses, const vector<string> unordered_bus) {
+    vector<string> a, b;
+    a = PereborStop(stop, buses);
+        if (a.size() != 0) {
+            for (int k = 0; k < unordered_bus.size(); k++) {
+                for (int j = 0; j < a.size(); j++) {
+                    if (unordered_bus[k] == a[j])
+                        b.push_back(unordered_bus[k]);
+                }
             }
         }
+        else {
+            b.size();
+        }
+        return b;
+}
+
+void PrintVector(const vector<string> a) {
+    for (auto& i : a) {
+        cout << i << " ";
     }
+    cout << endl;
 }
-
-void PereborBus(const string& bus, map<string, vector<string>> buses) {
-
-}
-
 
 int main()
 {
     int Q;
     cin >> Q;
     map<string, vector<string>> buses;
+    vector<string> unordered_bus;
     for (int i = 0; i < Q; i++) {
         string command;
         cin >> command;
@@ -47,6 +55,7 @@ int main()
             string bus;
             int stop_count;
             cin >> bus >> stop_count;
+            unordered_bus.push_back(bus);
             vector<string> stop(stop_count);
             for (int i = 0; i < stop_count; i++) {
                 cin >> stop[i];
@@ -56,20 +65,39 @@ int main()
         else if (command == "BUSES_FOR_STOP") {
             string stop;
             cin >> stop;
-            if (PereborStopBool(stop, buses) == 1) {
-                PereborStop(stop, buses);
-                cout << endl;
+            vector<string> bus;
+            bus = PereborStopBus(stop, buses, unordered_bus);
+            if (bus.empty()) {
+                cout << "No stop " << endl;
             }
             else {
-                cout << "No stop" << endl;
-            }
+                PrintVector(bus);
+            }  
         }
         else if (command == "STOPS_FOR_BUS") {
             string bus;
             cin >> bus;
+            vector<string> x;
             if (buses.count(bus) == 1) {
+                for (const auto& i : buses[bus]) {
+                    x = PereborStopBus(i, buses, unordered_bus);
+                    cout << "Stop " << i << ": ";
+                    if (x.size() == 1) {
+                        cout << "no interchange ";
+                    }
+                    else {
+                        for (int j = 0; j < x.size(); j++) {
+                            if (x[j] == bus) {
+                                j++;
+                            }
+                            else {
+                                cout << x[j] << " ";
+                            }
+                        }
 
-                //cout << "Bus " << bus << ": " << PereborBus(bus, buses) << endl;
+                    }
+                    cout << endl;
+                }
             }
             else if (buses.count(bus) == 0) {
                 cout << "No bus" << endl;
@@ -82,6 +110,7 @@ int main()
                     for (auto i : x.second) {
                         cout << i << " ";
                     }
+                    cout << endl;
                 }
             }
             else if (buses.size() == 0) {
