@@ -12,8 +12,8 @@ int main()
 {
     int Q;
     cin >> Q;
-    map<int, vector<string>> bus_stops;
-    int bus_count = 0;
+    map<vector<string>, int> bus_stops;
+    int bus_count = 1;
     for (int i = 0; i < Q; i++) {
         int num;
         cin >> num;
@@ -21,16 +21,14 @@ int main()
         for (auto& i : stops) {
             cin >> i;
         }
-        bus_count++;
-        for (auto& x : bus_stops) {
-            if (x.second == stops) {
-                cout << "Already exists for " << x.first << endl;
-            }
-            else {
-                bus_stops[bus_count] = stops;
-                cout << "New bus " << bus_count << endl;
-            }
+        auto result = bus_stops.find(stops);
+        if (result == bus_stops.end()) {
+            cout << "New bus " << bus_count << endl;
+            bus_stops[stops] = bus_count;
+            bus_count++;
         }
-
+        else {
+            cout << "Already exists for " << result->second << endl;
+        }
     }
 }
