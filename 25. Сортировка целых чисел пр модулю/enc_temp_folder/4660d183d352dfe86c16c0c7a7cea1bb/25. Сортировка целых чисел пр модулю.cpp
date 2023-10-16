@@ -19,7 +19,7 @@ int main()
         for (auto& i : nums) {
             cin >> i; 
         }
-        sort(begin(nums), end(nums), [](int a, int b) {return abs(a) < abs(b);});
+        sort(begin(nums), end(nums), [](int a, int b) {return a < abs(b);});
         PrintNum(nums);
     }
     else {
