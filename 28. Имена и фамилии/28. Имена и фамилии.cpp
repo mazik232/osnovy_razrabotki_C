@@ -19,24 +19,7 @@ public:
         full_names[year].lName = last_name;
     }
     string GetFullName(int year) {
-        string a;
-        if (full_names.count(year) == 0) {
-            cout << "Incognito" << endl;
-        }
-        else {
-            for (const auto& i : full_names) {
-                if (i.first <= year && i.second.fName != "") {
-                    a = i.second.fName;
-                }
-                else if (i.first <= year && i.second.lName != "") {
-                    a = i.second.lName;
-                }
-                else {
-                    a = i.second.fName + " " + i.second.lName;
-                }
-            }
-        }
-        return a;
+
     }
 private:
     map<int, full_name> full_names;
