@@ -22,42 +22,38 @@ public:
     }
     string GetFullName(int year) {
         string a;
-        int element;
-        string name, soname;
-        if (full_names.count(year) == 0) {
-            for (auto i : full_names) {
-                    if (i.second.fName != "" && i.first < year) {
-                        name = i.second.fName;
-                        element = i.first;
-                    }
-                    if (i.second.lName != "" && i.first < year) {
-                        soname = i.second.lName;
-                        element = i.first;
-                    }   
+        string name = "";
+        string soname = "";
+        int x = 0;
+        int y = 0;
+        for (auto i = full_names.rbegin(); i != full_names.rend(); ++i) {
+            if (i->first <= year) {
+                if (i->second.fName != "" && x == 0) {
+                    name = i->second.fName;
+                    x++;
                 }
-            if (element < year) {
-                a = name + " " + soname;
-            }
-            else {
-                a = "Incognito";
+                if (i->second.lName != "" && y == 0) {
+                    soname = i->second.lName;
+                    y++;
+                }
             }
         }
-        else if (full_names.count(year) != 0) {
-            if (full_names[year].lName == "") {
-                a = full_names[year].fName + " with unknown last name";
-            }
-            else if (full_names[year].fName == "") {
-                a = full_names[year].lName + " with unknown first name";
-            }
-            else {
-                a = full_names[year].fName + " " + full_names[year].lName;
-            }
+        if (name != "" && soname == "") {
+            a = name + " with unknown last name";
+        }
+        else if (name == "" && soname != "") {
+            a = soname + " with unknown first name";
+        }
+        else if (name != "" && soname != "") {
+            a = name + " " + soname;
+        }
+        else {
+            a = "Incognito";
         }
         return a;
     }
 private:
     map<int, full_name> full_names;
-    map<int, full_name> perebor;
 };
 
 int main()
