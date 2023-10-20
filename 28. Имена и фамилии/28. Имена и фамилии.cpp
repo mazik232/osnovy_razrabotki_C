@@ -11,6 +11,7 @@ struct full_name {
     string lName;
 };
 
+
 class Person {
 public:
     void ChangeFirstName(int year, const string& first_name) {
