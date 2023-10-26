@@ -28,6 +28,7 @@ public:
         full_names[year].lName = last_name;
     }
     string GetFullName(int year) {
+        if (year < birth_year) return "No person";
         string a;
         string name = "";
         string soname = "";
@@ -60,6 +61,7 @@ public:
         return a;
     }
     string GetFullNameWithHistory(int year) {
+        if (year < birth_year) return "No person";
         string a;
         string name, soname, nname, ssoname;
         int x = 0;
@@ -138,7 +140,7 @@ int main()
 
     person.ChangeFirstName(1965, "Appolinaria");
     person.ChangeLastName(1967, "Ivanova");
-    for (int year : {1965, 1967}) {
+    for (int year : {1959, 1967}) {
         cout << person.GetFullNameWithHistory(year) << endl;
     }
 
