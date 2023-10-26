@@ -15,7 +15,11 @@ struct full_name {
 class Person {
 public:
     Person(const string& n_name, const string& s_soname, int y_year) {
-        y_year.GetFullName
+        full_names[y_year] = { n_name, s_soname };
+        birth_year = y_year;
+        for (auto& i : full_names) {
+            if (i.first < y_year) full_names.erase(i.first);
+        }
     }
     void ChangeFirstName(int year, const string& first_name) {
         full_names[year].fName = first_name;
@@ -122,6 +126,7 @@ public:
     }
 private:
     map<int, full_name> full_names;
+    int birth_year = 0;
 };
 
 int main()
