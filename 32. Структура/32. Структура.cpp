@@ -4,20 +4,20 @@ using namespace std;
 
 struct Specialization {
     string word;
-    explicit Specialization(string new_word) {
+    Specialization(string new_word) {
         word = new_word;
     }
 };
 struct Course {
     string word;
-    explicit Course(string new_word) {
+    Course(string new_word) {
         word = new_word;
     }
 };
 
 struct Week {
     string word;
-    explicit Week(string new_word) {
+    Week(string new_word) {
         word = new_word;
     }
 };
@@ -42,9 +42,9 @@ void PrintLecture(const LectureTitle& a) {
 
 int main()
 {
-    LectureTitle title(Specialization("C++"), Course("White belt"), Week("4th"));
-    PrintLecture(title);
-    /*
+    //LectureTitle title(Specialization("C++"), Course("White belt"), Week("4th"));
+    //PrintLecture(title);
+    
     LectureTitle title("C++", "White belt", "4th");
 
     LectureTitle title(string("C++"), string("White belt"), string("4th"));
@@ -64,6 +64,6 @@ int main()
         Week("4th"),
         Course("White belt")
     );
-    */
+    
 }
 
