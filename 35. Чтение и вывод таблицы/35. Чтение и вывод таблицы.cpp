@@ -2,36 +2,50 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
-void Readtext(const string& text) {
-    vector<int> values;
-    int N = 0;
-    int M = 0;
-    int line = 0;
+vector<vector<int>> Readtext(const string& text) {
     ifstream input(text);
-    if (input) {
-        input >> N;
-        input.ignore(1);
-        input >> M;
-        input.ignore(1);
-        cout << N << " " << M << endl;
-        while (M) {
-            input >> line;
-            cout << line << " ";
-            M--;
+    string line;
+    if (input.is_open()) {
+        getline(input, line);
+        stringstream ss(line);
+        int N, M;
+        ss >> N >> M;
+        vector <vector<int>> table(N, vector<int>(M));
+        for (int i = 0; i < N; i++) {
+            getline(input, line);
+            stringstream ss(line);
+            for (int j = 0; j < M; j++) {
+                string value;
+                getline(ss, value, ',');
+                table[i][j] = stoi(value);
+            }
         }
+        return table;
     }
     else {
         cout << "file not found" << endl;
     }
 }
 
+void PrintText(const vector<vector<int>>&table) {
+    for (int i = 0; i < table.size(); i++) {
+        for (int j = 0; j < table[i].size(); j++) {
+            cout << setw(10);
+            cout << table[i][j] << " ";  
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
-    const string text = "input.txt";
-    Readtext(text);
+    const string text = "input.txt"; 
+    PrintText(Readtext(text));
 
 }
 
