@@ -11,14 +11,15 @@ void Readtext(const string& text) {
     int M = 0;
     ifstream input(text);
     if (input) {
-        string line;
-        getline(input, N, ',');
-        getline(input, M, '/n');
-        while (getline(input, line, ',')) {
-            N = line;
-        }
+        input >> N;
+        input.ignore(1);
+        input >> M;
+        input.ignore(1);
+        cout << N << " " << M << endl;
     }
 }
+
+
 
 int main()
 {
