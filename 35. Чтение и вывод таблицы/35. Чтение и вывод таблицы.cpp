@@ -9,6 +9,7 @@ void Readtext(const string& text) {
     vector<int> values;
     int N = 0;
     int M = 0;
+    int line = 0;
     ifstream input(text);
     if (input) {
         input >> N;
@@ -16,6 +17,13 @@ void Readtext(const string& text) {
         input >> M;
         input.ignore(1);
         cout << N << " " << M << endl;
+        while (getline())
+        while (M) {
+            input >> line;
+            input.ignore(1);
+            cout << line << " ";
+            M--;
+        }
     }
 }
 
