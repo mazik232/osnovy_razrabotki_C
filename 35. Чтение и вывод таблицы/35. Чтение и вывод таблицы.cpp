@@ -17,17 +17,16 @@ void Readtext(const string& text) {
         input >> M;
         input.ignore(1);
         cout << N << " " << M << endl;
-        while (getline())
         while (M) {
             input >> line;
-            input.ignore(1);
             cout << line << " ";
             M--;
         }
     }
+    else {
+        cout << "file not found" << endl;
+    }
 }
-
-
 
 int main()
 {
