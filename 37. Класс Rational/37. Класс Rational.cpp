@@ -2,6 +2,8 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <sstream>
+#include <iomanip>
 
 
 using namespace std;
@@ -16,7 +18,16 @@ public:
         cout << "q = " << q << endl;
     }
 
-    int Common_divisor(int& a, int& b) {
+    Rational operator+(const Rational& rhs) {
+        return Rational(p*rhs.q + q* rhs.p, q * rhs.q);
+    }
+    Rational operator-(const Rational& rhs) const {
+        return Rational(p * rhs.q - q * rhs.p, q * rhs.q);
+    }
+    bool operator==(const Rational& rhs) const {
+        return (p*rhs.q == q*rhs.p);
+    }
+    void Common_divisor(int& a, int& b) {
         int x = a;
         int y = b;
         if (a < 0) {
@@ -35,10 +46,9 @@ public:
                 b %= a;
             }
         }
-        a = a + b;
-        a = x / a;
-        b = y / b;
-        return a, b;
+        int gcd = a + b;
+        a = x / gcd;
+        b = y / gcd;
     }
 
     int Numerator() const {
@@ -48,6 +58,7 @@ public:
     int Denominator() const {
         return q;
     }
+
 
 
 private:
@@ -82,9 +93,9 @@ int main() {
     }
 
     {
-        const Rational r(4, -6);
-        if (r.Numerator() != -2 || r.Denominator() != 3) {
-            cout << "Rational(4, -6) != -2/3" << endl;
+        const Rational r(-4, -6);
+        if (r.Numerator() != 2 || r.Denominator() != 3) {
+            cout << "Rational(-4, -6) != -2/3" << endl;
             return 3;
         }
     }
@@ -105,7 +116,7 @@ int main() {
         }
     }
     cout << "OK first test" << endl;
-    /*//Вторая часть
+    //Вторая часть
     {
         Rational r1(4, 6);
         Rational r2(2, 3);
@@ -137,9 +148,8 @@ int main() {
             return 3;
         }
     }
-
     cout << "OK second test" << endl;
-    //Третья часть
+    /*//Третья часть
     {
         Rational a(2, 3);
         Rational b(4, 3);
