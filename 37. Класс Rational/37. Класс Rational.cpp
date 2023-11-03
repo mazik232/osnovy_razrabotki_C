@@ -11,12 +11,22 @@ public:
     Rational(int numerator = 0, int denominator = 1) {
         p = numerator;
         q = denominator;
+        Common_divisor(p, q);
+        cout << "p = " << p << endl;
+        cout << "q = " << q << endl;
     }
 
-    void Common_divisor(int& a, int& b) {
+    int Common_divisor(int& a, int& b) {
         int x = a;
         int y = b;
-        int s;
+        if (a < 0) {
+            a *= -1;
+        }
+        if (b < 0) {
+            b *= -1;
+            x *= -1;
+            y *= -1;
+        }
         while (a > 0 && b > 0) {
             if (a > b) {
                 a %= b;
@@ -29,17 +39,13 @@ public:
         a = x / a;
         b = y / b;
         return a, b;
-        Numerator(a);
-        Denominator(b);
     }
 
     int Numerator() const {
-
         return p;
     }
 
     int Denominator() const {
-        
         return q;
     }
 
