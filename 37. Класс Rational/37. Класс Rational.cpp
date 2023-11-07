@@ -18,15 +18,38 @@ public:
         cout << "q = " << q << endl;
     }
 
+    friend ostream& operator<<(ostream& os, const Rational& rational) {
+        os << rational.p << "/" << rational.q;
+
+
+
+        return os;
+    }
+
+    friend istream& operator>>(istream& is, Rational& rational) {
+        char slash;
+        is >> rational.p >> slash >> rational.q;
+        return is;
+    }
+
     Rational operator+(const Rational& rhs) {
-        return Rational(p*rhs.q + q* rhs.p, q * rhs.q);
+        return Rational(p * rhs.q + q * rhs.p, q * rhs.q);
     }
     Rational operator-(const Rational& rhs) const {
         return Rational(p * rhs.q - q * rhs.p, q * rhs.q);
     }
     bool operator==(const Rational& rhs) const {
-        return (p*rhs.q == q*rhs.p);
+        return (p * rhs.q == q * rhs.p);
     }
+    Rational operator*(const Rational& rhs) {
+        return Rational(p * rhs.p, q * rhs.q);
+    }
+    Rational operator/(const Rational& rhs) {
+        return Rational(p * rhs.q, q * rhs.p);
+    }
+
+
+
     void Common_divisor(int& a, int& b) {
         int x = a;
         int y = b;
@@ -58,8 +81,6 @@ public:
     int Denominator() const {
         return q;
     }
-
-
 
 private:
     int p;
@@ -149,7 +170,7 @@ int main() {
         }
     }
     cout << "OK second test" << endl;
-    /*//Третья часть
+    //Третья часть
     {
         Rational a(2, 3);
         Rational b(4, 3);
@@ -250,7 +271,7 @@ int main() {
     }
 
     cout << "OK four test" << endl;
-    //Пятая часть
+    /*//Пятая часть
     {
         const set<Rational> rs = { {1, 2}, {1, 25}, {3, 4}, {3, 4}, {1, 2} };
         if (rs.size() != 3) {
