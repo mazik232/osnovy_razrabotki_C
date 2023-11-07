@@ -4,7 +4,8 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
-
+#include <set>
+#include <iterator>
 
 using namespace std;
 
@@ -14,21 +15,21 @@ public:
         p = numerator;
         q = denominator;
         Common_divisor(p, q);
-        cout << "p = " << p << endl;
-        cout << "q = " << q << endl;
     }
 
     friend ostream& operator<<(ostream& os, const Rational& rational) {
         os << rational.p << "/" << rational.q;
-
-
-
         return os;
     }
-
     friend istream& operator>>(istream& is, Rational& rational) {
         char slash;
-        is >> rational.p >> slash >> rational.q;
+        int numerator, denominator;
+        if (is >> numerator >> slash >> denominator && slash == '/') {
+            rational = Rational(numerator, denominator);
+        }
+        else {
+            is.setstate(ios::failbit);
+        }
         return is;
     }
 
@@ -41,14 +42,15 @@ public:
     bool operator==(const Rational& rhs) const {
         return (p * rhs.q == q * rhs.p);
     }
+    bool operator<(const Rational& rhs) const {
+        return (p * rhs.q < q * rhs.p);
+    }
     Rational operator*(const Rational& rhs) {
         return Rational(p * rhs.p, q * rhs.q);
     }
     Rational operator/(const Rational& rhs) {
         return Rational(p * rhs.q, q * rhs.p);
     }
-
-
 
     void Common_divisor(int& a, int& b) {
         int x = a;
@@ -271,7 +273,7 @@ int main() {
     }
 
     cout << "OK four test" << endl;
-    /*//Пятая часть
+    //Пятая часть
     {
         const set<Rational> rs = { {1, 2}, {1, 25}, {3, 4}, {3, 4}, {1, 2} };
         if (rs.size() != 3) {
@@ -302,5 +304,5 @@ int main() {
         }
     }
 
-    cout << "OK five test" << endl;*/
+    cout << "OK five test" << endl;
 }
