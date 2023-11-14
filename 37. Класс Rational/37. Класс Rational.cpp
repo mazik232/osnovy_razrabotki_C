@@ -53,6 +53,9 @@ public:
         return Rational(p * rhs.p, q * rhs.q);
     }
     Rational operator/(const Rational& rhs) {
+        if (rhs.p == 0) {
+            throw domain_error("Division by zero");
+        }
         return Rational(p * rhs.q, q * rhs.p);
     }
 
