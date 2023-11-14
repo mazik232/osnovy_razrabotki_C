@@ -97,8 +97,17 @@ private:
 
 int main()
 {
-    Rational calc;
-    cin >> calc;
-    cout << " = " << calc;
+    try {
+        Rational calc;
+        cin >> calc;
+        cout << calc << endl;
+        return 0;
+    }
+    catch (invalid_argument&) {
+        cout << "Invalid argument";
+    }
+    catch (domain_error&) {
+        cout << "Division by zero";
+    }
 }
 
