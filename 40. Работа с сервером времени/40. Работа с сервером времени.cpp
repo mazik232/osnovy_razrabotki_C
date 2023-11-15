@@ -10,7 +10,7 @@ string AskTimeServer() {
         throw runtime_error("Time server is not responding");
     }
     else if (x == 1) {
-        return a;
+        throw invalid_argument("Invalid argument");
     }
 }
 
@@ -22,7 +22,7 @@ public:
             last_fetched_time = new_time; // Обновляем значение поля
         }
         catch (system_error&) {
-            // Если произошла ошибка системного характера, сохраняем текущее время
+            cout << "system error" << endl;// Если произошла ошибка системного характера, сохраняем текущее время
         }
         // Возвращаем значение поля - либо новое, либо старое
         return last_fetched_time;
