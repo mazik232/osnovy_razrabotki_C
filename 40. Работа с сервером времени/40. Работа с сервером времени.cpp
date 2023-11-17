@@ -6,12 +6,13 @@ using namespace std;
 string AskTimeServer() {
     int x = 1;
     string a = "05:05:05";
-    if (x == 0) {
+    if (x == 1) {
         throw runtime_error("Time server is not responding");
     }
     else if (x == 1) {
         throw invalid_argument("Invalid argument");
     }
+    return a;
 }
 
 class TimeServer {
