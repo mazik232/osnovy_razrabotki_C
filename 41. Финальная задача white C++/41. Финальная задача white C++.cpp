@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <map>
+#include <string>
 
 
 using namespace std;
@@ -19,26 +20,28 @@ public:
     bool DeleteEvent(const Date& date, const string& event);
     int  DeleteDate(const Date& date);
 
-    /* ??? */ Find(const Date& date) const;
+    /* ??? */ //Find(const Date& date) const;
 
     void Print() const;
 
     void DoSomething(const map<int, int>& m) {
         // ...
-        if (m.count(key) > 0) {
-            value = m.at(key);
-        }
+        //if (m.count(key) > 0) {
+            //value = m.at(key);
+        //}
 
     }
 };
 
 int main() {
-    Database db;
+    //Database db;
 
     string command;
     while (getline(cin, command)) {
         // Считайте команды с потока ввода и обработайте каждую
+        if (command)
+        cout << command << endl;
     }
-
+    cout << command << endl;
     return 0;
 }
