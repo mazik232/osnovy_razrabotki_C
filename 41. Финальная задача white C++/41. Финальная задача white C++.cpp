@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include<sstream>
 
 using namespace std;
 
@@ -9,21 +10,48 @@ using namespace std;
 
 class Date {
 public:
-    int GetYear() const;
+    Date(string date) {
+        stringstream ss(date);
+        char delimiter;
+        ss >> year >> delimiter >> month >> delimiter >> day;
+    }
 
-    int GetMonth() const;
+    int GetYear() const {
+        return year;
+    }
 
-    int GetDay() const;
+    int GetMonth() const {
+        return month;
+    }
 
+    int GetDay() const {
+        return day;
+    }
+private:
+    int year;
+    int month;
+    int day;
 };
 
-bool operator<(const Date& lhs, const Date& rhs);
+bool operator<(const Date& lhs, const Date& rhs) {
+    return 1;
+}
+
+
 
 class Database {
 public:
-    void AddEvent(const Date& date, const string& event);
-    bool DeleteEvent(const Date& date, const string& event);
-    int  DeleteDate(const Date& date);
+    void AddEvent(const Date& date, const string& event) {
+
+
+    }
+    bool DeleteEvent(const Date& date, const string& event) {
+
+        return 0;
+    }
+    int  DeleteDate(const Date& date) {
+        return 0;
+    }
 
     void Find(const Date& date) const {
 
@@ -44,15 +72,17 @@ int main() {
     Database db;
     string command;
     while (getline(cin, command)) {
-        Date date;
-        string event, str;
-        date.GetYear();
-        date.GetMonth();
-        date.GetDay();
+        string dateStr, event, str;
+        stringstream ss(command);
+        ss >> str;
         if (str == "Add") {
+            ss >> dateStr >> event;
+            Date date(dateStr);
             db.AddEvent(date, event);
         }
         else if (str == "Del") {
+            ss >> dateStr >> event;
+            Date date(dateStr);
             if (event.empty()) {
                 cout << "Deleted " << db.DeleteDate(date) << " events" << endl;
             }
@@ -66,7 +96,9 @@ int main() {
             }
         }
         else if (str == "Find") {
-            db.Find(date);;
+            ss >> dateStr;
+            Date date(dateStr);
+            db.Find(date);
         }
         else if (str == "Print") {
             db.Print();
@@ -77,3 +109,4 @@ int main() {
     }
     return 0;
 }
+
