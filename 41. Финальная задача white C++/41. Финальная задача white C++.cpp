@@ -14,6 +14,10 @@ public:
         stringstream ss(date);
         char delimiter;
         ss >> year >> delimiter >> month >> delimiter >> day;
+        if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31) {
+            throw invalid_argument("Month value is invalid: ");
+        }
+        cout << year << " " << month << " " << day;
     }
 
     int GetYear() const {
@@ -34,6 +38,7 @@ private:
 };
 
 bool operator<(const Date& lhs, const Date& rhs) {
+    
     return 1;
 }
 
