@@ -4,6 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -95,6 +96,7 @@ public:
         vector<string> events;
         if (date_events.count(date) > 0) {
             events = date_events.at(date);
+            sort(events.begin(), events.end());
             for (auto& i : events) {
                 cout << i << endl;
             }
@@ -106,6 +108,7 @@ public:
 
     void Print() const {
         for (const auto& i : date_events) {
+            sort(i.second.begin(), i.second.end());
             for (const auto& x : i.second) {
                 cout << setw(4) << setfill('0') << i.first.GetYear();
                 cout << "-" << setw(2) << setfill('0') << i.first.GetMonth();
