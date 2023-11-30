@@ -44,15 +44,15 @@ private:
 };
 
 bool operator<(const Date& lhs, const Date& rhs) {
-    if (lhs.GetYear() < rhs.GetYear()) {
+    if (lhs.GetDay() < rhs.GetDay()) {
         if (lhs.GetMonth() < rhs.GetMonth()) {
-            if (lhs.GetDay() < rhs.GetDay()) {
+            if (lhs.GetYear() < rhs.GetYear()) {
                 return 1;
             }
-            else {
-                return 0;
-            }
         }
+    }
+    else {
+        return 0;
     }
     
 }
@@ -78,7 +78,16 @@ public:
     }
 
     void Find(const Date& date) const {
-        
+        vector<string> events;
+        if (date_events.count(date) > 0) {
+            events = date_events.at(date);
+            for (auto i : events) {
+                cout << i << endl;
+            }
+        }
+        else {
+            cout << "Events not found in date " << date.GetYear() << "-" << date.GetMonth() << "-" << date.GetDay() << endl;
+        }
     }
 
     void Print() const {
@@ -91,12 +100,6 @@ public:
         }
     }
 
-    void DoSomething(const map<int, int>& m) {
-        // ...
-        //if (m.count(key) > 0) {
-            //value = m.at(key);
-        //}
-    }
 private:
     map<Date, vector<string>> date_events;
 };
