@@ -70,18 +70,32 @@ public:
         }
     }
     bool DeleteEvent(const Date& date, const string& event) {
-
+        auto it = date_events.find(date);
+        if (it != date_events.end()) {
+            vector<string>& events = it->second;
+            for (auto it_event = events.begin(); it_event != events.end(); ++it_event) {
+                if (*it_event == event) {
+                    events.erase(it_event);
+                    return 1;
+                }
+            }
+        }
         return 0;
     }
     int  DeleteDate(const Date& date) {
-        return 0;
+        int num_events = 0;
+        if (date_events.count(date) > 0) {
+            num_events = date_events.at(date).size();
+            date_events.erase(date);
+        }
+        return num_events;
     }
 
     void Find(const Date& date) const {
         vector<string> events;
         if (date_events.count(date) > 0) {
             events = date_events.at(date);
-            for (auto i : events) {
+            for (auto& i : events) {
                 cout << i << endl;
             }
         }
