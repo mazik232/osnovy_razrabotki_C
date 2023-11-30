@@ -55,7 +55,6 @@ bool operator<(const Date& lhs, const Date& rhs) {
     else {
         return 0;
     }
-    
 }
 
 
@@ -108,8 +107,9 @@ public:
 
     void Print() const {
         for (const auto& i : date_events) {
-            sort(i.second.begin(), i.second.end());
-            for (const auto& x : i.second) {
+            vector<string> events_sort = i.second;
+            sort(events_sort.begin(), events_sort.end());
+            for (const auto& x : events_sort) {
                 cout << setw(4) << setfill('0') << i.first.GetYear();
                 cout << "-" << setw(2) << setfill('0') << i.first.GetMonth();
                 cout << "-" << setw(2) << setfill('0') << i.first.GetDay() << " " << x << endl;
