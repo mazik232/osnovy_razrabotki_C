@@ -18,10 +18,10 @@ public:
             throw runtime_error("Wrong date format: " + date);
         }
         if (month < 1 || month > 12) {
-            throw runtime_error("Wrong date format: " + to_string(month));
+            throw runtime_error("Month value is invalid: " + to_string(month));
         }
         if (day < 1 || day > 31) {
-            throw runtime_error("Wrong date format: " + to_string(day));
+            throw runtime_error("Day value is invalid: " + to_string(day));
         }
     }
 
