@@ -2,7 +2,8 @@
 #include <map>
 #include <string>
 #include <vector>
-#include<sstream>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -43,17 +44,30 @@ private:
 };
 
 bool operator<(const Date& lhs, const Date& rhs) {
+    if (lhs.GetYear() < rhs.GetYear()) {
+        if (lhs.GetMonth() < rhs.GetMonth()) {
+            if (lhs.GetDay() < rhs.GetDay()) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
     
-    return 1;
 }
-
 
 
 class Database {
 public:
     void AddEvent(const Date& date, const string& event) {
-
-
+        auto it = date_events.find(date);
+        if (it != date_events.end()) {
+            it->second.push_back(event);
+        }
+        else {
+            date_events[date] = { event };
+        }
     }
     bool DeleteEvent(const Date& date, const string& event) {
 
@@ -64,11 +78,17 @@ public:
     }
 
     void Find(const Date& date) const {
-
+        
     }
 
     void Print() const {
-
+        for (const auto& i : date_events) {
+            for (const auto& x : i.second) {
+                cout << setw(4) << setfill('0') << i.first.GetYear();
+                cout << "-" << setw(2) << setfill('0') << i.first.GetMonth();
+                cout << "-" << setw(2) << setfill('0') << i.first.GetDay() << " " << x << endl;
+            }
+        }
     }
 
     void DoSomething(const map<int, int>& m) {
@@ -77,6 +97,8 @@ public:
             //value = m.at(key);
         //}
     }
+private:
+    map<Date, vector<string>> date_events;
 };
 int main() {
     Database db;
